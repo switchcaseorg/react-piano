@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import {Footer} from "./layout/Footer"
-import {Logo} from "./layout/Logo"
+import {Footer} from "Layouts/Footer"
+import {Logo} from "Layouts/Logo"
 import {Home} from "Pages/Home"
 function App() {
   return (

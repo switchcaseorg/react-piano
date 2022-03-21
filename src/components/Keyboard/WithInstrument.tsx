@@ -1,21 +1,20 @@
-import React, { FunctionComponent, useEffect } from "react"
+import React, { FunctionComponent } from "react"
+import { useInstrument } from "States/Instrument"
+import { withInstrument } from "Adapters/SoundFont/withInstrument"
 import { useAudioContext } from "../AudioContextProvider"
-import { useSoundfont } from "Adapters/SoundFont"
 import { Keyboard } from "../Keyboard"
 import "./style.css"
-import { useInstrument } from "states/Instrument"
+
+const WrappedKeyboard = withInstrument(Keyboard)
 
 export const KeyboardWithInstrument: FunctionComponent = () => {
-    const AudioContext = useAudioContext()!
-    const { instrument } = useInstrument()
-    const { loading, current, play, stop, load } = useSoundfont({
-      AudioContext
-    })
-  
-    useEffect(() => {
-      if (!loading && instrument !== current) load(instrument)
-    }, [load, loading, current, instrument])
-  
-    return <Keyboard loading={loading} play={play} stop={stop} />
-  }
-  
+  const AudioContext = useAudioContext()!
+  const { instrument } = useInstrument()
+
+  return (
+    <WrappedKeyboard
+      AudioContext={AudioContext}
+      instrument={instrument}
+    />
+  )
+}
